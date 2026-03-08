@@ -26,13 +26,13 @@ Ce projet implemente un flux simple de gestion des produits:
 
 ### 1) Page Liste des Produits (`GET /findAll`)
 
-![Page liste des produits](docs/screenshots/01-product-list.png)
+<img width="1044" height="263" alt="image" src="https://github.com/user-attachments/assets/364f51b6-28da-41a3-85c5-ce0d797e4673" />
 
 Affiche tous les produits (`id`, `name`, `price`, `quantity`), un bouton **Ajouter un produit** et un bouton de suppression par ligne.
 
 ### 2) Formulaire d'Ajout Produit (`GET /add`)
 
-![Formulaire d'ajout produit](docs/screenshots/02-product-form.png)
+<img width="1045" height="604" alt="image" src="https://github.com/user-attachments/assets/91fb7912-dc93-4f64-83d2-f3973f321f17" />
 
 Champs du formulaire:
 
@@ -44,13 +44,13 @@ Lors de la soumission, les donnees sont envoyees vers `POST /saveProduct`.
 
 ### 3) Confirmation de Suppression (`GET /deleteProduct?id=...`)
 
-![Boite de dialogue de confirmation de suppression](docs/screenshots/03-delete-confirmation.png)
+<img width="1047" height="615" alt="image" src="https://github.com/user-attachments/assets/8bf24931-e12f-48e7-beae-c0b6e8ade21d" />
 
 Avant la suppression, l'interface appelle `confirm('est que vous etes sur')` en JavaScript pour demander une confirmation.
 
 ### 4) Erreurs de Validation des Champs (`POST /saveProduct`)
 
-![Erreurs de validation du formulaire](docs/screenshots/04-validation-errors.png)
+<img width="1917" height="683" alt="image" src="https://github.com/user-attachments/assets/1bce0648-dc85-4168-b7cf-df94c72f1a4d" />
 
 Quand les donnees ne respectent pas les contraintes (`name` entre 4 et 50, `quantity` >= 1), le formulaire est reaffiche avec les messages d'erreur sous les champs concernes.
 
