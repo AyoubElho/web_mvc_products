@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Form</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4">Product Form</h2>
+
+        <form method="post" th:action="@{/saveProduct}">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" th:value="${product.name}" class="form-control" name="name"
+                       placeholder="Enter product name">
+                <span th:errors="${product.name}"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="number" th:value="${product.price}" class="form-control" name="price"
+                       placeholder="Enter price">
+                <span th:errors="${product.price}"></span>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Quantity</label>
+                <input type="number" class="form-control" th:value="${product.quantity}" name="quantity"
+                       placeholder="Enter quantity">
+                <span th:errors="${product.quantity}"></span>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Submit
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

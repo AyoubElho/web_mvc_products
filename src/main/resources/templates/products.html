@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet"type="text/css" href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
 </head>
 <body>
-<table class="table table-bordered" border="1">
+<a class="btn btn-primary" th:href="@{/add}">Add product</a>
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
     </tr>
-    <tr th:each="p:${products}">
-        <td th:text="${p.getId()}"></td>
-        <td th:text="${p.getName()}"></td>
-        <td th:text="${p.getPrice()}"></td>
-        <td th:text="${p.getQuantity()}"></td>
+    <tr th:each="p : ${products}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.name}"></td>
+        <td th:text="${p.price} + ' dh'"></td>
+        <td th:text="${p.quantity}"></td>
         <td>
-            <a onclick="return confirm('est que vous etes sur')" th:href="@{/deleteProduct(id=${p.id})}" class="btn btn-danger">Button</a>
+            <a onclick="return confirm('est que vous etes sur')" th:href="@{/deleteProduct(id=${p.id})}"
+               class="btn btn-danger">Button</a>
         </td>
     </tr>
 </table>
