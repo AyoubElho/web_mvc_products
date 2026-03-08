@@ -48,6 +48,12 @@ Lors de la soumission, les donnees sont envoyees vers `POST /saveProduct`.
 
 Avant la suppression, l'interface appelle `confirm('est que vous etes sur')` en JavaScript pour demander une confirmation.
 
+### 4) Erreurs de Validation des Champs (`POST /saveProduct`)
+
+![Erreurs de validation du formulaire](docs/screenshots/04-validation-errors.png)
+
+Quand les donnees ne respectent pas les contraintes (`name` entre 4 et 50, `quantity` >= 1), le formulaire est reaffiche avec les messages d'erreur sous les champs concernes.
+
 ## Modele de Donnees
 
 Champs et validations de `Product`:
