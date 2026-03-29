@@ -1,89 +1,47 @@
-# Gestion des Produits Web MVC
+# Product Manager - Spring Boot MVC
 
-Application Spring Boot 3 MVC pour gérer des produits avec une interface Thymeleaf et des endpoints JSON.
+Spring Boot 3 MVC app with Thymeleaf pages, JSON endpoints, and Spring Security roles to manage products.
 
-## Vue d'ensemble
+## Overview
+- View all products in a table.
+- Admins can add and delete products; normal users are read-only.
+- Built for demos and coursework; H2 in-memory database by default.
 
-Ce projet implemente un flux simple de gestion des produits:
+## Accounts (default logins)
+- `user1` / `1234` (ROLE_USER)
+- `user2` / `1234` (ROLE_USER)
+- `admin` / `1234` (ROLE_ADMIN, ROLE_USER)
 
-- Afficher tous les produits dans un tableau
-- Ouvrir un formulaire pour ajouter un produit
-- Valider les donnees utilisateur avant l'enregistrement
-- Supprimer un produit avec confirmation du navigateur
-- Exposer les donnees des produits au format JSON
+## Role-based behavior
+- `GET /user/` -> list page (visible to USER and ADMIN)
+- `GET /admin/add` -> product form (ADMIN only)
+- `POST /admin/save` -> persist a product (ADMIN only)
+- `GET /admin/delete?id={id}` -> delete a product (ADMIN only)
+- `GET /json` -> JSON list of products (USER or ADMIN)
 
-## Pile Technique
+## Screenshots
+### User view (read-only list)
+![User product list](docs/screenshots/user-product-list.png)
 
-- Java 21
-- Spring Boot 3.5.11
-- Spring MVC + Thymeleaf
-- Spring Data JPA
-- Base de donnees H2 en memoire (active dans la configuration actuelle)
-- Bootstrap 5.3.8 (via WebJars)
-- Interface OpenAPI springdoc
+### Admin view (add + delete)
+![Admin product list with actions](docs/screenshots/admin-product-list.png)
 
-## Apercu de l'Interface
+## Data model and validation
+- `id`: `Long`, generated with `IDENTITY`
+- `name`: required, length 4-50
+- `price`: minimum 0
+- `quantity`: minimum 1
 
-### 1) Page Liste des Produits (`GET /findAll`)
+## Stack
+- Java 21, Spring Boot 3.5.11
+- Spring MVC + Thymeleaf, Spring Data JPA
+- Spring Security (form login)
+- H2 in-memory DB
+- Bootstrap 5.3.8 via WebJars
+- OpenAPI UI: `http://localhost:8080/swagger-ui/index.html`
 
-<img width="1044" height="263" alt="image" src="https://github.com/user-attachments/assets/364f51b6-28da-41a3-85c5-ce0d797e4673" />
-
-Affiche tous les produits (`id`, `name`, `price`, `quantity`), un bouton **Ajouter un produit** et un bouton de suppression par ligne.
-
-### 2) Formulaire d'Ajout Produit (`GET /add`)
-
-<img width="1045" height="604" alt="image" src="https://github.com/user-attachments/assets/91fb7912-dc93-4f64-83d2-f3973f321f17" />
-
-Champs du formulaire:
-
-- `name`
-- `price`
-- `quantity`
-
-Lors de la soumission, les donnees sont envoyees vers `POST /saveProduct`.
-
-### 3) Confirmation de Suppression (`GET /deleteProduct?id=...`)
-
-<img width="1047" height="615" alt="image" src="https://github.com/user-attachments/assets/8bf24931-e12f-48e7-beae-c0b6e8ade21d" />
-
-Avant la suppression, l'interface appelle `confirm('est que vous etes sur')` en JavaScript pour demander une confirmation.
-
-### 4) Erreurs de Validation des Champs (`POST /saveProduct`)
-
-<img width="1917" height="683" alt="image" src="https://github.com/user-attachments/assets/1bce0648-dc85-4168-b7cf-df94c72f1a4d" />
-
-Quand les donnees ne respectent pas les contraintes (`name` entre 4 et 50, `quantity` >= 1), le formulaire est reaffiche avec les messages d'erreur sous les champs concernes.
-
-## Modele de Donnees
-
-Champs et validations de `Product`:
-
-- `id`: `Long`, genere automatiquement (`IDENTITY`)
-- `name`: obligatoire, longueur entre 4 et 50
-- `price`: minimum `0`
-- `quantity`: minimum `1`
-
-## Endpoints
-
-### MVC / Thymeleaf
-
-- `GET /findAll` -> rend `products.html`
-- `GET /add` -> rend `form.html`
-- `POST /saveProduct` -> valide et enregistre, puis redirige vers `/findAll`
-- `GET /deleteProduct?id={id}` -> supprime le produit, puis redirige vers `/findAll`
-
-### JSON
-
-- `GET /findAll/json` -> retourne la liste des produits en JSON
-- `GET /products` -> retourne la liste des produits en JSON (controleur REST)
-
-## Execution en Local
-
-### Prerequis
-
-- JDK 21
-
-### Demarrer l'application
+## Run locally
+Prereq: JDK 21.
 
 ```bash
 # Windows
@@ -93,16 +51,10 @@ mvnw.cmd spring-boot:run
 ./mvnw spring-boot:run
 ```
 
-URL de l'application: `http://localhost:8080`
+Application URL: `http://localhost:8080`
+H2 console: `http://localhost:8080/h2-console` (JDBC url `jdbc:h2:mem:products-db`)
 
-## Base de Donnees et URLs de Developpement
-
-- Console H2: `http://localhost:8080/h2-console`
-- URL JDBC: `jdbc:h2:mem:products-db`
-- Swagger UI (springdoc): `http://localhost:8080/swagger-ui/index.html`
-
-## Structure du Projet
-
+## Project layout
 ```text
 src/main/java/org/example/web_mvc_products/
   WebMvcProductsApplication.java
@@ -110,6 +62,7 @@ src/main/java/org/example/web_mvc_products/
   dao/ProductRepo.java
   ws/ProductController.java
   ws/ProductRestApi.java
+  security/SecurityConfig.java
 
 src/main/resources/
   application.properties
@@ -118,6 +71,5 @@ src/main/resources/
 ```
 
 ## Notes
-
-- La configuration actuelle utilise une base H2 en memoire, donc les donnees sont reinitialisees a chaque redemarrage.
-- `mysql-connector-j` est present dans les dependances, mais MySQL n'est pas configure actuellement dans `application.properties`.
+- The in-memory H2 database resets on each restart.
+- MySQL driver is on the classpath but not configured; set `application.properties` if you want to use it.

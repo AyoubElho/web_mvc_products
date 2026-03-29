@@ -1,8 +1,6 @@
-Place your screenshots in this folder using these exact names:
+Screenshots referenced by the root `README.md`:
 
-- `01-product-list.png`
-- `02-product-form.png`
-- `03-delete-confirmation.png`
-- `04-validation-errors.png`
+- `user-product-list.png`   (normal user view, read-only list)
+- `admin-product-list.png`  (admin view with add + delete actions)
 
-These names are referenced by the root `README.md`.
+Replace these files with fresh captures if the UI changes. Keep the same names so the links in `README.md` continue to work.
