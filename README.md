@@ -20,11 +20,18 @@ Spring Boot 3 MVC app with Thymeleaf pages, JSON endpoints, and Spring Security 
 - `GET /json` -> JSON list of products (USER or ADMIN)
 
 ## Screenshots
-### User view (read-only list)
-![User product list](docs/screenshots/user-product-list.png)
+### Product list (admin view with add/delete)
+![Product list - admin](https://github.com/user-attachments/assets/364f51b6-28da-41a3-85c5-ce0d797e4673)
+*Normal user view is the same table without the add/delete buttons.*
 
-### Admin view (add + delete)
-![Admin product list with actions](docs/screenshots/admin-product-list.png)
+### Add product form
+![Add product form](https://github.com/user-attachments/assets/91fb7912-dc93-4f64-83d2-f3973f321f17)
+
+### Delete confirmation
+![Delete confirmation](https://github.com/user-attachments/assets/8bf24931-e12f-48e7-beae-c0b6e8ade21d)
+
+### Validation errors
+![Validation errors](https://github.com/user-attachments/assets/1bce0648-dc85-4168-b7cf-df94c72f1a4d)
 
 ## Data model and validation
 - `id`: `Long`, generated with `IDENTITY`
