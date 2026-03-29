@@ -16,20 +16,20 @@ public class ProductController {
     @Autowired
     private ProductRepo productRepo;
 
-    @GetMapping("/findAll")
+    @GetMapping("/user/")
     public String findAll(Model model) {
         List<Product> products = productRepo.findAll();
         model.addAttribute("products", products);
         return "products";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/admin/add")
     public String add(Model model) {
         model.addAttribute("product", new Product());
         return "form";
     }
 
-    @PostMapping("/saveProduct")
+    @PostMapping("/admin/save")
     public String save(@Valid Product product, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             Product product1 = Product
@@ -39,22 +39,22 @@ public class ProductController {
                     .quantity(product.getQuantity())
                     .build();
             productRepo.save(product1);
-            return "redirect:/findAll";
+            return "redirect:/user/";
 
         } else {
             return "form";
         }
     }
 
-    @GetMapping("/deleteProduct")
+    @GetMapping("/admin/delete")
     public String delete(@RequestParam(name = "id") Long id) {
         Product product = productRepo.findById(id).get();
         productRepo.delete(product);
-        return "redirect:/findAll";
+        return "redirect:/user/";
     }
 
 
-    @GetMapping("/findAll/json")
+    @GetMapping("/json")
     @ResponseBody
     public List<Product> findAlljson() {
         List<Product> products = productRepo.findAll();
